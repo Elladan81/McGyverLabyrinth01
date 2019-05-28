@@ -35,4 +35,13 @@ continuer = 1
 #main loop
 while continuer:
     pygame.time.Clock().tick(30)
-    continue
+
+    #if user quit, the game is over
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            continuer = 0
+        
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                continuer = 0
+            
