@@ -6,7 +6,7 @@ First, I will create three files in order to make changes more easily without ch
 
 My first file will contain the structure of the game.
 The second will contain the object classes that make up my game.
-The third will contain the images of the game.
+The third will contain constants of the game (window configuration, images, sounds,etc.).
 
                         ####
 
@@ -19,7 +19,7 @@ En premier lieu, je vais créer trois fichiers afin de pouvoir opérer des modif
 
 Mon permier fichier contiendra la structure du jeu.
 Le second contiendra les classes d'objet qui composent mon jeu.
-Le troisième contiendra les images du jeu.
+Le troisième contiendra les constantes du jeu (configuration fenetre, images, sons etc).
 
 
 
