@@ -12,7 +12,7 @@ sprite_size = 30
 window_size = num_sprite_len * sprite_size
 
 #window configuration
-title_window = "McGyver Labyrinthe"
+window_title = "McGyver Labyrinthe"
 img_icon = "images/MacGyver.png"
 
 #game picture
