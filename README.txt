@@ -8,27 +8,16 @@ My first file will contain the structure of the game.
 The second will contain the object classes that make up my game.
 The third will contain constants of the game (window configuration, images, sounds,etc.).
 
-                        ####
 
-                        
+####
 
-At launch, the game will have to take place in several stages.
-
-First, the window will have to display a home screen, which will prompt the player to choose a level.
-
-When the choice is made, the game must then be launched, with the possibility of returning to the home screen.
-
-When the labyrinth is finished, we will have to find the home screen, and be able to choose another level.
-
-The structure of the level (departure, location of the walls, arrival), will have to be recorded in a file lvl1, lvl2 ... to create and modify them easily.
-
-
-The window will be a square that can display 15 sprites along the length.
-
-McGyver will have to move from box to box, with 15 boxes along the length of the window
-
-McGyver will be controlled by the directional keys on the keyboard.
-
-The user can at any time return to the main menu to choose another level.
-
-The labyrinth will be finished when McGyver reaches the exit, equipped with the sarbacanne and the needle
+                    
+There is only one level. 
+The structure (departure, location of the walls, arrival), must be recorded in a file for easy modification if necessary.
+MacGyver will be controlled by the arrow keys on the keyboard.
+Objects will be randomly assigned to the maze and will change locations if the user closes the game and raises.
+The game window will be a square that can display 15 sprites along the length.
+MacGyver will have to move from box to box, with 15 boxes on the length of the window!
+He will retrieve an object simply by moving on it.
+The program stops only if MacGyver has recovered all the objects and found the labyrinth output. If he does not have all the objects and he comes to the guard, he dies (life is cruel to the heroes).
+The program will be standalone, that is it can be run on any computer.
