@@ -11,16 +11,24 @@ The third will contain constants of the game (window configuration, images, soun
                         ####
 
                         
-Bienvenue !
 
-Ceci est mon premier test en python/pygame, j'espère que ce jeu vous plaira !
+At launch, the game will have to take place in several stages.
 
-En premier lieu, je vais créer trois fichiers afin de pouvoir opérer des modifications plus faciement sans modifier la structure du jeu dans sa globalité.
+First, the window will have to display a home screen, which will prompt the player to choose a level.
 
-Mon permier fichier contiendra la structure du jeu.
-Le second contiendra les classes d'objet qui composent mon jeu.
-Le troisième contiendra les constantes du jeu (configuration fenetre, images, sons etc).
+When the choice is made, the game must then be launched, with the possibility of returning to the home screen.
+
+When the labyrinth is finished, we will have to find the home screen, and be able to choose another level.
+
+The structure of the level (departure, location of the walls, arrival), will have to be recorded in a file lvl1, lvl2 ... to create and modify them easily.
 
 
+The window will be a square that can display 15 sprites along the length.
 
-Mickael.
+McGyver will have to move from box to box, with 15 boxes along the length of the window
+
+McGyver will be controlled by the directional keys on the keyboard.
+
+The user can at any time return to the main menu to choose another level.
+
+The labyrinth will be finished when McGyver reaches the exit, equipped with the sarbacanne and the needle
