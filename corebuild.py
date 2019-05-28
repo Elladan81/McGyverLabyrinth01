@@ -9,6 +9,7 @@ I know, it looks crazy
 
 Script : Python
 Files : corebuild.py, classes.py, configuration.py images, sond and music.
+
 """
 
 #import of pygame lib
