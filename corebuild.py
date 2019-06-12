@@ -38,6 +38,7 @@ while continuer:
 
     #if user quit, the game is over
     for event in pygame.event.get():
+
         if event.type == QUIT:
             continuer = 0
         

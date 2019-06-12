@@ -1,2 +1,6 @@
 
 .vscode/settings.json
+license.txt
+__pycache__/classes.cpython-37.pyc
+__pycache__/constants.cpython-37.pyc
+Thumbs.db
