@@ -18,7 +18,7 @@ from constants import *
 
 class Level:
     """this class creates the lvl"""
-    def __init__(self,file1):
+    def __init__(self, file1):
         self.file1 = file1
         self.structure = 0
     
@@ -42,7 +42,7 @@ class Level:
         finish = pygame.image.load(img_finish).convert_alpha()
 
         num_line = 0
-        for line in self.strucutre:
+        for line in self.structure:
             num_case = 0
             for sprite in line:
                 x = num_case*sprite_size
@@ -61,8 +61,8 @@ class MacGuyver:
         #charachter sprite
         self.right = pygame.image.load(right).convert_alpha()
         self.left = pygame.image.load(left).convert_alpha()
-        self.up = pygame.image_load(up).convert_alpha()
-        self.down = pygame.image_load(down).convert_alpha()
+        self.up = pygame.image.load(up).convert_alpha()
+        self.down = pygame.image.load(down).convert_alpha()
         #character position
         self.case_x = 0
         self.case_y = 0
@@ -75,7 +75,7 @@ class MacGuyver:
     
     def move(self, direction):
         """method to move the character"""
-        #move
+        #move right
         if direction == 'right':
             #to not leave the labyrinth
             if self.case_x < (num_sprite_len -1):
@@ -101,7 +101,7 @@ class MacGuyver:
                     self.case_y -=1
                     self.x = self.case_x*sprite_size
             self.direction = self.up
-            #move down
+        #move down
         if direction == 'down':
             if self.case_y < (num_sprite_len -1):
                 if self.level.strucutre[self.case_y+1][self.case_x] != 'm':
