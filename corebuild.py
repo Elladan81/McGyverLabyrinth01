@@ -38,10 +38,9 @@ continuer = 1
 
 while continuer:
     #load home screen
-    home = pygame.image.load(home.png).convert()
-    window.blit(home, 0,0))
-
-    pygame.display.flip^()
+    home = pygame.image.load(img_home).convert()
+    window.blit(home, (0,0))
+    pygame.display.flip()
 
     continuer_game = 1
     continuer_home = 1
