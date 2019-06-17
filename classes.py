@@ -99,12 +99,12 @@ class MacGyver:
             if self.case_x > 0:
                 if self.level.structure[self.case_y-1][self.case_x] != 'm':
                     self.case_y -=1
-                    self.x = self.case_x*sprite_size
+                    self.y = self.case_y*sprite_size
             self.direction = self.up
         #move down
         if direction == 'down':
             if self.case_y < (num_sprite_len -1):
                 if self.level.structure[self.case_y+1][self.case_x] != 'm':
                     self.case_y +=1
-                    self.x = self.case_x*sprite_size
+                    self.y = self.case_y*sprite_size
             self.direction = self.down
