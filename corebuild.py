@@ -71,7 +71,7 @@ while continuer:
         level.generate()
         level.afficher(window)
 
-        mg = MacGuyver("images/MacGuyver.png", level)
+        mg = MacGyver("images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", level)
     
     #Game Loop
     while continuer_game:
@@ -85,7 +85,7 @@ while continuer:
             elif event.type == KEYDOWN :
                 if event.type == K_ESCAPE:
                     continuer_jeu = 0
-                #key to move MacGuyver
+                #key to move MacGyver
                 elif event.key == K_RIGHT:
                     mg.move('right')
                 elif event.key == K_LEFT:
