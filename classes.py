@@ -18,28 +18,28 @@ from constants import *
 
 class Level:
     """this class creates the lvl"""
-    def __init__(self, file1):
-        self.file1 = file1
+    def __init__(self, fichier):
+        self.fichier = fichier
         self.structure = 0
     
     def generate(self):
         """method generates the lvl with the file. Create a list, containing a list per lines"""
         #open file
-        with open(self.file1, "r") as file1:
+        with open(self.fichier, "r") as fichier:
             structure_lvl = []
-        #read file
-        for line in file1:
-            line_lvl= []
-            for sprite in line:
-                if sprite != '\n':
-                    line_lvl.append(sprite)
-            structure_lvl.append(line_lvl)
-        self.structure = structure_lvl
+            #read file
+            for line in fichier:
+                line_lvl= []
+                for sprite in line:
+                    if sprite != '\n':
+                        line_lvl.append(sprite)
+                structure_lvl.append(line_lvl)
+            self.structure = structure_lvl
     
     def afficher(self, window):
         wall = pygame.image.load(img_wall).convert()
         start = pygame.image.load(img_start).convert()
-        finish = pygame.image.load(img_finish).convert_alpha()
+        finish = pygame.image.load(img_finish).convert()
 
         num_line = 0
         for line in self.structure:
@@ -56,7 +56,7 @@ class Level:
                 num_case += 1
             num_line +=1
 
-class MacGuyver:
+class MacGyver:
     def __init__(self, right, left, up, down, Level):
         #charachter sprite
         self.right = pygame.image.load(right).convert_alpha()
@@ -80,7 +80,7 @@ class MacGuyver:
             #to not leave the labyrinth
             if self.case_x < (num_sprite_len -1):
                 #we chack that is not a wall
-                if self.level.strucutre[self.case_y][self.case_x+1] != 'm':
+                if self.level.structure[self.case_y][self.case_x+1] != 'm':
                     #move one step
                     self.case_x +=1
                     #calculate real position in pixel
@@ -90,21 +90,21 @@ class MacGuyver:
         #move left
         if direction == 'left':
             if self.case_x > 0:
-                if self.level.strucutre[self.case_y][self.case_x-1] != 'm':
+                if self.level.structure[self.case_y][self.case_x-1] != 'm':
                     self.case_x -=1
                     self.x = self.case_x*sprite_size
             self.direction = self.left
         #move top
         if direction == 'up':
             if self.case_x > 0:
-                if self.level.strucutre[self.case_y-1][self.case_x] != 'm':
+                if self.level.structure[self.case_y-1][self.case_x] != 'm':
                     self.case_y -=1
                     self.x = self.case_x*sprite_size
             self.direction = self.up
         #move down
         if direction == 'down':
             if self.case_y < (num_sprite_len -1):
-                if self.level.strucutre[self.case_y+1][self.case_x] != 'm':
+                if self.level.structure[self.case_y+1][self.case_x] != 'm':
                     self.case_y +=1
                     self.x = self.case_x*sprite_size
             self.direction = self.down
