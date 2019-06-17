@@ -96,7 +96,7 @@ class MacGyver:
             self.direction = self.left
         #move top
         if direction == 'up':
-            if self.case_x > 0:
+            if self.case_y > 0:
                 if self.level.structure[self.case_y-1][self.case_x] != 'm':
                     self.case_y -=1
                     self.y = self.case_y*sprite_size
