@@ -1,9 +1,9 @@
 """
 classes will be here
 
-this file will contain classes :
+this fichier will contain classes :
 
-Level : with two methods, one that generates a level from one file in a structure attribute, the other that displays it on the screen
+Level : with two methods, one that generates a level from one fichier in a structure attribute, the other that displays it on the screen
 
 Character : who creates a character, with a position, a current image (current direction), a position in a box, a position in pixels ...
 It contains only one method, that of displacement.
@@ -27,7 +27,7 @@ class Level:
         #open file
         with open(self.fichier, "r") as fichier:
             structure_lvl = []
-            #read file
+            #read fichier
             for line in fichier:
                 line_lvl= []
                 for sprite in line:
@@ -108,3 +108,6 @@ class MacGyver:
                     self.case_y +=1
                     self.y = self.case_y*sprite_size
             self.direction = self.down
+
+        def lootitem(self):
+            pass
