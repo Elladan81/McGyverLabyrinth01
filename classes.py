@@ -13,6 +13,7 @@ Items to collect : creates item with a random position, a current image, how to 
 """
 
 import pygame
+import random
 from pygame.locals import *
 from constants import *
 
@@ -57,58 +58,78 @@ class Level:
             num_line +=1
 
 class MacGyver:
-    def __init__(self, right, left, up, down, Level):
-        #charachter sprite
-        self.right = pygame.image.load(right).convert_alpha()
-        self.left = pygame.image.load(left).convert_alpha()
-        self.up = pygame.image.load(up).convert_alpha()
-        self.down = pygame.image.load(down).convert_alpha()
-        #character position
+    def __init__(self, mgimage, Level):
+        #  charachter sprite
+        self.mgimage = pygame.image.load(img_macgyver).convert_alpha()
+        # character position
         self.case_x = 0
         self.case_y = 1
         self.x = 0
         self.y =30
-        #start Direction
-        self.direction = self.right
-        #lvl start
+        self.direction = self.mgimage
+        # lvl start
         self.level = Level
     
     def move(self, direction):
         """method to move the character"""
-        #move right
+        # move right
         if direction == 'right':
-            #to not leave the labyrinth
+            # to not leave the labyrinth
             if self.case_x < (num_sprite_len -1):
                 #we chack that is not a wall
                 if self.level.structure[self.case_y][self.case_x+1] != 'm':
-                    #move one step
+                    # move one step
                     self.case_x +=1
-                    #calculate real position in pixel
+                    # calculate real position in pixel
                     self.x = self.case_x*sprite_size
-            #img in the good position
-            self.direction = self.right
-        #move left
+                   
+        # move left
         if direction == 'left':
             if self.case_x > 0:
                 if self.level.structure[self.case_y][self.case_x-1] != 'm':
                     self.case_x -=1
                     self.x = self.case_x*sprite_size
-            self.direction = self.left
-        #move top
+
+        # move top
         if direction == 'up':
             if self.case_y > 0:
                 if self.level.structure[self.case_y-1][self.case_x] != 'm':
                     if self.level.structure[self.case_y-1][self.case_x] != 'v':
                         self.case_y -=1
                         self.y = self.case_y*sprite_size
-            self.direction = self.up
-        #move down
+ 
+        # move down
         if direction == 'down':
             if self.case_y < (num_sprite_len):
                 if self.level.structure[self.case_y+1][self.case_x] != 'm':
                     self.case_y +=1
                     self.y = self.case_y*sprite_size
-            self.direction = self.down
 
-        def lootitem(self):
-            pass
+
+    def lootitem(self):
+        pass
+
+class Stuff:
+    """this class create stuff can use to escape the maze"""
+    def __init__(self, lootimage, Level):
+        self.lootimage = lootimage
+        self.strawimage = pygame.image.load(img_straw).convert_alpha()
+        self.needleimage = pygame.image.load(img_needle).convert_alpha()
+        self.etherimage = pygame.image.load(img_ether).convert_alpha()
+        # item position
+        self.case_y = 0
+        self.case_x = 0
+        self.x = 0
+        self.y = 0
+        self.level = Level
+        self.loaded = True
+
+    def display_item(self, lootimage, window):
+        # generate random position of the item
+        while self.loaded:
+            self.case_x = random.randint(0, 14)  # We randomize the case_x position
+            self.case_y = random.randint(0, 14)  # same for case_y position
+            if self.level.structure[self.case_y][self.case_x] == '0': # if the randomized position is located on a free space
+                self.y = self.case_y * sprite_size  # We define/accept the position for the object
+                self.x = self.case_x * sprite_size
+                self.loaded = False  # Once we have defined a position for one object, the script is over
