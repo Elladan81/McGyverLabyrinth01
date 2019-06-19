@@ -21,6 +21,9 @@ class Level:
     def __init__(self, fichier):
         self.fichier = fichier
         self.structure = 0
+        self.wall = pygame.image.load(img_wall).convert()
+        self.start = pygame.image.load(img_start).convert()
+        self.finish = pygame.image.load(img_finish).convert()
     
     def generate(self):
         """method generates the lvl with the file. Create a list, containing a list per lines"""
@@ -37,9 +40,6 @@ class Level:
             self.structure = structure_lvl
     
     def afficher(self, window):
-        wall = pygame.image.load(img_wall).convert()
-        start = pygame.image.load(img_start).convert()
-        finish = pygame.image.load(img_finish).convert()
 
         num_line = 0
         for line in self.structure:
@@ -48,11 +48,11 @@ class Level:
                 x = num_case*sprite_size
                 y = num_line*sprite_size
                 if sprite =='m':
-                    window.blit(wall, (x,y))
+                    window.blit(self.wall, (x,y))
                 elif sprite =='s':
-                    window.blit(start, (x,y))
+                    window.blit(self.start, (x,y))
                 elif sprite =='f':
-                    window.blit(finish, (x,y))
+                    window.blit(self.finish, (x,y))
                 num_case += 1
             num_line +=1
 
@@ -65,9 +65,9 @@ class MacGyver:
         self.down = pygame.image.load(down).convert_alpha()
         #character position
         self.case_x = 0
-        self.case_y = 0
+        self.case_y = 1
         self.x = 0
-        self.y =0
+        self.y =30
         #start Direction
         self.direction = self.right
         #lvl start
@@ -98,12 +98,13 @@ class MacGyver:
         if direction == 'up':
             if self.case_y > 0:
                 if self.level.structure[self.case_y-1][self.case_x] != 'm':
-                    self.case_y -=1
-                    self.y = self.case_y*sprite_size
+                    if self.level.structure[self.case_y-1][self.case_x] != 'v':
+                        self.case_y -=1
+                        self.y = self.case_y*sprite_size
             self.direction = self.up
         #move down
         if direction == 'down':
-            if self.case_y < (num_sprite_len -1):
+            if self.case_y < (num_sprite_len):
                 if self.level.structure[self.case_y+1][self.case_x] != 'm':
                     self.case_y +=1
                     self.y = self.case_y*sprite_size
