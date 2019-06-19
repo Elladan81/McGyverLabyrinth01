@@ -32,13 +32,6 @@ pygame.display.set_icon(icon)
 pygame.display.set_caption(window_title)
 
 
-# Main start victory condition
-StrawPicked = False
-NeedlePicked = False
-EtherPIcked = False
-YOU_WIN = False
-YOU_LOOSE = False
-
 # Main Loop
 continue_main = 1
 
@@ -71,7 +64,8 @@ while continue_main:
                 #lauch 1st lvl
                 if event.key == K_RETURN:
                     continue_home = 0
-                    choose = 'lvl1'
+                    list_level = ['lvl1', 'lvl2']
+                    choose = random.choice(list_level)
     # check player choose a lvl, to not laod if leave
     if choose != 0:
         #load images
@@ -90,9 +84,18 @@ while continue_main:
         ether = Stuff(img_ether, level)
         ether.display_item(img_ether, window)
 
+        # main victory condition
+
+        StrawPicked = False
+        NeedlePicked = False
+        EtherPIcked = False
+        YOU_WIN = False
+        YOU_LOOSE = False
+
     # Game Loop
     while continue_game:
-        #limite game loop
+        
+            #limite game loop
         pygame.time.Clock().tick(30)
     	# if user quit = var = 0 to close the window
         for event in pygame.event.get():
@@ -100,7 +103,7 @@ while continue_main:
                 continue_game = 0
                 continue_main = 0
             elif event.type == KEYDOWN :
-                if event.type == K_ESCAPE:
+                if event.key == K_ESCAPE:
                     continue_game = 0
                 # key to move MacGyver
                 elif event.key == K_RIGHT:
@@ -160,7 +163,7 @@ while continue_main:
         if YOU_LOOSE is True:
             window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
             font = pygame.font.Font(None, 25)
-            text = font.render("Murdoc caught you. It's over for you, McGyver !.", 1, (255, 255, 255))  # Display the text in white with rounded edge
+            text = font.render("Murdoc caught you. It's over for you, McGyver !", 1, (255, 255, 255))  # Display the text in white with rounded edge
             textrect = text.get_rect()
             textrect.centerx, textrect.centery = window_size / 2, window_size / 2
             window.blit(text, textrect)
