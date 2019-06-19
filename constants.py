@@ -16,6 +16,7 @@ window_title = "McGyver Labyrinthe"
 img_icon = "images/MacGyver.png"
 
 #game picture
+img_macgyver = "images/macgyver.png"
 img_home = "images/home.png"
 img_background = "images/background.png"
 img_wall = "images/wall.png"
@@ -23,4 +24,4 @@ img_start= "images/start.png"
 img_finish = "images/finish.png"
 img_needle = "images/needle.png"
 img_straw = "images/straw.png"
-img_chloro = "images/choloroform.png"
+img_ether = "images/ether.png"
