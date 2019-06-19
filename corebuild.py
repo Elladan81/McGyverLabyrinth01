@@ -18,7 +18,7 @@ from pygame.locals import *
 
 #import other files : classes and configuration
 from classes import *
-from constants import *
+from settings import *
 
 pygame.init()
 
