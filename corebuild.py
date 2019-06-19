@@ -23,7 +23,7 @@ from constants import *
 pygame.init()
 
 #open a game window
-window = pygame.display.set_mode((window_size, window_size))
+window = pygame.display.set_mode((window_size, 480))
 #window icon
 icon = pygame.image.load(img_icon)
 pygame.display.set_icon(icon)
@@ -37,14 +37,14 @@ pygame.display.set_caption(window_title)
 continuer = 1
 
 while continuer:
-    #load home screen
+    # load home screen
     home = pygame.image.load(img_home).convert()
     window.blit(home, (0,0))
     pygame.display.flip()
 
     continuer_game = 1
     continuer_home = 1
-    #Home loop
+    # Home loop
     while continuer_home:
         #limit loop
         pygame.time.Clock().tick(30)
@@ -66,6 +66,7 @@ while continuer:
     #check player choose a lvl, to not laod if leave
     if choose !=0:
         background = pygame.image.load(img_background).convert()
+        window.blit(background, (0,30))
 
         level = Level(choose)
         level.generate()
@@ -73,11 +74,11 @@ while continuer:
 
         mg = MacGyver("images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", "images/MacGyver.png", level)
     
-    #Game Loop
+    # Game Loop
     while continuer_game:
         #limite game loop
         pygame.time.Clock().tick(30)
-    	#if user quit = var = 0 to close the window
+    	# if user quit = var = 0 to close the window
         for event in pygame.event.get():
             if event.type == QUIT:
                 continuer_game = 0
@@ -85,7 +86,7 @@ while continuer:
             elif event.type == KEYDOWN :
                 if event.type == K_ESCAPE:
                     continuer_jeu = 0
-                #key to move MacGyver
+                # key to move MacGyver
                 elif event.key == K_RIGHT:
                     mg.move('right')
                 elif event.key == K_LEFT:
@@ -96,7 +97,7 @@ while continuer:
                     mg.move('down')
 
         #display at new positions
-        window.blit(background, (0,0))
+        window.blit(background, (0,30))
         level.afficher(window)
         window.blit(mg.direction, (mg.x, mg.y))
         pygame.display.flip()
