@@ -22,7 +22,7 @@ from settings import *
 
 pygame.init()
 
-#open a game window
+# open a game window
 window = pygame.display.set_mode((window_size, 480))
 # window icon
 icon = pygame.image.load(img_icon)
@@ -32,28 +32,29 @@ pygame.display.set_icon(icon)
 pygame.display.set_caption(window_title)
 
 
-# Main Condition
+# Main start victory condition
 StrawPicked = False
 NeedlePicked = False
 EtherPIcked = False
 YOU_WIN = False
-You_LOOSE = False
+YOU_LOOSE = False
 
 # Main Loop
-continuer = 1
+continue_main = 1
 
 pygame.key.set_repeat(400,30) # moving MacGyver by maintening a key
 
-while continuer:
-    # load home screen
+while continue_main:
+    # load Home screen
     home = pygame.image.load(img_home).convert()
     window.blit(home, (0,0))
     pygame.display.flip()
 
-    continuer_game = 1
-    continuer_home = 1
+    continue_game = 1
+    continue_home = 1
+
     # Home loop
-    while continuer_home:
+    while continue_home:
         # limit refreshing screen loop
         pygame.time.Clock().tick(30)
 
@@ -61,18 +62,19 @@ while continuer:
         for event in pygame.event.get():
 
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                continuer_home = 0
-                continuer_game = 0
-                continuer = 0
+                continue_home = 0
+                continue_game = 0
+                continue_main = 0
                 choose = 0
             
             elif event.type == KEYDOWN:
                 #lauch 1st lvl
-                if event.key == K_F1:
-                    continuer_home = 0
+                if event.key == K_RETURN:
+                    continue_home = 0
                     choose = 'lvl1'
     # check player choose a lvl, to not laod if leave
     if choose != 0:
+        #load images
         background = pygame.image.load(img_background).convert()
         window.blit(background, (0,30))
 
@@ -80,26 +82,26 @@ while continuer:
         level.generate()
         level.afficher(window)
 
-        mg = MacGyver("images/MacGyver.png", level)
-        straw = Stuff("images/straw.png", level)
-        straw.display_item("images/straw.png", window)
-        needle = Stuff("images/needle.png", level)
-        needle.display_item("images/needle.png", window)
-        ether = Stuff("images/ether.png", level)
-        ether.display_item("images/ether.png", window)
+        mg = MacGyver(img_macgyver, level)
+        straw = Stuff(img_straw, level)
+        straw.display_item(img_straw, window)
+        needle = Stuff(img_needle, level)
+        needle.display_item(img_needle, window)
+        ether = Stuff(img_ether, level)
+        ether.display_item(img_ether, window)
 
     # Game Loop
-    while continuer_game:
+    while continue_game:
         #limite game loop
         pygame.time.Clock().tick(30)
     	# if user quit = var = 0 to close the window
         for event in pygame.event.get():
             if event.type == QUIT:
-                continuer_game = 0
-                continuer = 0
+                continue_game = 0
+                continue_main = 0
             elif event.type == KEYDOWN :
                 if event.type == K_ESCAPE:
-                    continuer_jeu = 0
+                    continue_game = 0
                 # key to move MacGyver
                 elif event.key == K_RIGHT:
                     mg.move('right')
@@ -139,12 +141,12 @@ while continuer:
         #end game (without condition)
         if level.structure[mg.case_y][mg.case_x] == 'f':
             # If MacGyver reach the guard :
-            if StrawPicked is True and NeedlePicked is True and EtherPIcked is True:  # If every objects have been looted, he won.
+            if StrawPicked is True and NeedlePicked is True and EtherPIcked is True:  # If every objects have been looted, it's ok, you win !
                 YOU_WIN = True
             else:
-                You_LOOSE = True  # Else it's game over !
+                YOU_LOOSE = True  # Else it's game over ! You loose !
             
-
+        # create a final scene, with a text in the middle of the screen
         if YOU_WIN is True:
             window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
             font = pygame.font.Font(None, 25)
@@ -155,7 +157,7 @@ while continuer:
 
             pygame.display.flip()
 
-        if You_LOOSE is True:
+        if YOU_LOOSE is True:
             window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
             font = pygame.font.Font(None, 25)
             text = font.render("Murdoc caught you. It's over for you, McGyver !.", 1, (255, 255, 255))  # Display the text in white with rounded edge
