@@ -74,9 +74,9 @@ class MacGyver:
         """method to move the character"""
         # move right
         if direction == 'right':
-            # to not leave the labyrinth
+            # prevents from going out the labyrinth/screen
             if self.case_x < (num_sprite_len -1):
-                #we chack that is not a wall
+                # we check that the position is not a wall
                 if self.level.structure[self.case_y][self.case_x+1] != 'm':
                     # move one step
                     self.case_x +=1
@@ -107,9 +107,9 @@ class MacGyver:
 
 
 class Stuff:
-    """this class create stuff can use to escape the maze"""
-    def __init__(self, lootimage, Level):
-        self.lootimage = lootimage
+    """this class create stuff MacGyver can use to escape the maze"""
+    def __init__(self, lootimage, Level): 
+        # load item
         self.strawimage = pygame.image.load(img_straw).convert_alpha()
         self.needleimage = pygame.image.load(img_needle).convert_alpha()
         self.etherimage = pygame.image.load(img_ether).convert_alpha()
@@ -119,7 +119,7 @@ class Stuff:
         self.x = 0
         self.y = 0
         self.level = Level
-        self.loaded = True
+        self.loaded = True # condition to display item
 
     def display_item(self, lootimage, window):
         # generate random position of the item
@@ -127,6 +127,6 @@ class Stuff:
             self.case_x = random.randint(0, 14)  # We randomize the case_x position
             self.case_y = random.randint(0, 14)  # same for case_y position
             if self.level.structure[self.case_y][self.case_x] == '0': # if the randomized position is located on a free space
-                self.y = self.case_y * sprite_size  # We define/accept the position for the object
+                self.y = self.case_y * sprite_size  # We define/accept the position of the object
                 self.x = self.case_x * sprite_size
-                self.loaded = False  # Once we have defined a position for one object, the script is over
+                self.loaded = False  # Once we have defined the position of the object, the script is over
