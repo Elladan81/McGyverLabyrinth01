@@ -74,7 +74,7 @@ while continue_main:
 
         level = Level(choose)
         level.generate()
-        level.afficher(window)
+        level.display_level(window)
 
         mg = MacGyver(img_macgyver, level)
         straw = Stuff(img_straw, level)
@@ -89,9 +89,7 @@ while continue_main:
         StrawPicked = False
         NeedlePicked = False
         EtherPIcked = False
-        YOU_WIN = False
-        YOU_LOOSE = False
-
+        
     # Game Loop
     while continue_game:
         
@@ -117,7 +115,7 @@ while continue_main:
 
         #display at new positions
         window.blit(background, (0,30))
-        level.afficher(window)
+        level.display_level(window)
         window.blit(mg.direction, (mg.x, mg.y))
 
         if StrawPicked is False:
@@ -145,27 +143,28 @@ while continue_main:
         if level.structure[mg.case_y][mg.case_x] == 'f':
             # If MacGyver reach the guard :
             if StrawPicked is True and NeedlePicked is True and EtherPIcked is True:  # If every objects have been looted, it's ok, you win !
-                YOU_WIN = True
+                 # create a final scene, with a text in the middle of the screen
+                window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
+                font = pygame.font.Font(None, 25)
+                text = font.render("You won ! MacGyver escaped from this deadly trap !", 1, (255, 255, 255)) # Display the text in white with rounded edge
+                textrect = text.get_rect()
+                textrect.centerx, textrect.centery = window_size / 2, window_size / 2  # Centering the text 
+                window.blit(text, textrect)
+
+                pygame.display.flip()
             else:
-                YOU_LOOSE = True  # Else it's game over ! You loose !
+                 # Else it's game over ! You loose !
+                window.blit(background, (0, 30)) # draw over everything on the screen now by re-drawing the background
+                font = pygame.font.Font(None, 25)
+                text = font.render("Murdoc caught you. It's over for you, McGyver !", 1, (255, 255, 255))  # Display the text in white with rounded edge
+                textrect = text.get_rect()
+                textrect.centerx, textrect.centery = window_size / 2, window_size / 2
+                window.blit(text, textrect)
+
+                pygame.display.flip()
+
             
-        # create a final scene, with a text in the middle of the screen
-        if YOU_WIN is True:
-            window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
-            font = pygame.font.Font(None, 25)
-            text = font.render("You won ! MacGyver escaped from this deadly trap !", 1, (255, 255, 255)) # Display the text in white with rounded edge
-            textrect = text.get_rect()
-            textrect.centerx, textrect.centery = window_size / 2, window_size / 2  # Centering the text 
-            window.blit(text, textrect)
-
-            pygame.display.flip()
-
-        if YOU_LOOSE is True:
-            window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
-            font = pygame.font.Font(None, 25)
-            text = font.render("Murdoc caught you. It's over for you, McGyver !", 1, (255, 255, 255))  # Display the text in white with rounded edge
-            textrect = text.get_rect()
-            textrect.centerx, textrect.centery = window_size / 2, window_size / 2
-            window.blit(text, textrect)
-
-            pygame.display.flip()
+       
+    
+            
+            
