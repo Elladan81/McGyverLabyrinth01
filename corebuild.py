@@ -64,18 +64,21 @@ while continue_main:
                 #lauch 1st lvl
                 if event.key == K_RETURN:
                     continue_home = 0
-                    list_level = ['lvl1', 'lvl2']
-                    choose = random.choice(list_level)
+                    list_level = ['lvl1', 'lvl2'] # list of level files
+                    choose = random.choice(list_level) # choose a random level from the list
     # check player choose a lvl, to not laod if leave
     if choose != 0:
-        #load images
+        
+        # load background image
         background = pygame.image.load(img_background).convert()
         window.blit(background, (0,30))
 
+        # use def to generate and display the level
         level = Level(choose)
         level.generate()
         level.display_level(window)
 
+        # load items and character images
         mg = MacGyver(img_macgyver, level)
         straw = Stuff(img_straw, level)
         straw.display_item(img_straw, window)
@@ -84,8 +87,7 @@ while continue_main:
         ether = Stuff(img_ether, level)
         ether.display_item(img_ether, window)
 
-        # main victory condition
-
+        # initiate main victory condition
         StrawPicked = False
         NeedlePicked = False
         EtherPIcked = False
@@ -93,7 +95,7 @@ while continue_main:
     # Game Loop
     while continue_game:
         
-            #limite game loop
+        # limit game loop
         pygame.time.Clock().tick(30)
     	# if user quit = var = 0 to close the window
         for event in pygame.event.get():
@@ -113,7 +115,7 @@ while continue_main:
                 elif event.key == K_DOWN:
                     mg.move('down')
 
-        #display at new positions
+        # display at new positions
         window.blit(background, (0,30))
         level.display_level(window)
         window.blit(mg.direction, (mg.x, mg.y))
@@ -137,31 +139,29 @@ while continue_main:
             window.blit(ether.etherimage, (90,0))
 
 
-        pygame.display.flip()
-
         #end game (without condition)
         if level.structure[mg.case_y][mg.case_x] == 'f':
             # If MacGyver reach the guard :
             if StrawPicked is True and NeedlePicked is True and EtherPIcked is True:  # If every objects have been looted, it's ok, you win !
-                 # create a final scene, with a text in the middle of the screen
-                window.blit(background, (0, 30))  # draw over everything on the screen now by re-drawing the background
+                # create a final scene, with a text in the middle of the screen
+                window.fill((0, 0, 0))  # draw over everything on the screen now by re-drawing the background
                 font = pygame.font.Font(None, 25)
                 text = font.render("You won ! MacGyver escaped from this deadly trap !", 1, (255, 255, 255)) # Display the text in white with rounded edge
                 textrect = text.get_rect()
                 textrect.centerx, textrect.centery = window_size / 2, window_size / 2  # Centering the text 
                 window.blit(text, textrect)
 
-                pygame.display.flip()
+        
             else:
-                 # Else it's game over ! You loose !
-                window.blit(background, (0, 30)) # draw over everything on the screen now by re-drawing the background
+                # Else it's game over ! You loose !
+                window.fill((0, 0, 0)) # draw over everything on the screen now by re-drawing the background
                 font = pygame.font.Font(None, 25)
                 text = font.render("Murdoc caught you. It's over for you, McGyver !", 1, (255, 255, 255))  # Display the text in white with rounded edge
                 textrect = text.get_rect()
                 textrect.centerx, textrect.centery = window_size / 2, window_size / 2
                 window.blit(text, textrect)
 
-                pygame.display.flip()
+        pygame.display.flip()
 
             
        
