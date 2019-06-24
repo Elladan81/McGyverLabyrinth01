@@ -40,7 +40,7 @@ class Level:
                 structure_lvl.append(line_lvl)
             self.structure = structure_lvl
     
-    def afficher(self, window):
+    def display_level(self, window):
 
         num_line = 0
         for line in self.structure:
@@ -105,9 +105,6 @@ class MacGyver:
                     self.case_y +=1
                     self.y = self.case_y*sprite_size
 
-
-    def lootitem(self):
-        pass
 
 class Stuff:
     """this class create stuff can use to escape the maze"""
