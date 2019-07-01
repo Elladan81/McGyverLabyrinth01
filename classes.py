@@ -14,119 +14,131 @@ Items to collect : creates item with a random position, a current image, how to 
 
 import pygame
 import random
+import os
 from pygame.locals import *
-from constants import *
+from settings import *
+
 
 class Level:
     """this class creates the lvl"""
-    def __init__(self, fichier):
-        self.fichier = fichier
+
+    def __init__(self, level_file):
+        self.settings = Settings()
+        self.level_file = level_file
         self.structure = 0
-        self.wall = pygame.image.load(img_wall).convert()
-        self.start = pygame.image.load(img_start).convert()
-        self.finish = pygame.image.load(img_finish).convert()
-    
+        self.wall = pygame.image.load(self.settings.img_wall).convert()
+        self.finish = pygame.image.load(self.settings.img_finish).convert()
+
     def generate(self):
         """method generates the lvl with the file. Create a list, containing a list per lines"""
-        #open file
-        with open(self.fichier, "r") as fichier:
+        # open file
+        with open(self.level_file, "r") as level_file:
             structure_lvl = []
-            #read fichier
-            for line in fichier:
-                line_lvl= []
+            # read level_file
+            for line in level_file:
+                line_lvl = []
                 for sprite in line:
                     if sprite != '\n':
                         line_lvl.append(sprite)
                 structure_lvl.append(line_lvl)
             self.structure = structure_lvl
-    
-    def display_level(self, window):
 
+    def display_level(self, window):
+        """ method to display the maze """
         num_line = 0
         for line in self.structure:
             num_case = 0
             for sprite in line:
-                x = num_case*sprite_size
-                y = num_line*sprite_size
-                if sprite =='m':
-                    window.blit(self.wall, (x,y))
-                elif sprite =='s':
-                    window.blit(self.start, (x,y))
-                elif sprite =='f':
-                    window.blit(self.finish, (x,y))
+                x = num_case*self.settings.sprite_size
+                y = num_line*self.settings.sprite_size
+                if sprite == 'm':
+                    window.blit(self.wall, (x, y))
+                elif sprite == 'f':
+                    window.blit(self.finish, (x, y))
                 num_case += 1
-            num_line +=1
+            num_line += 1
+
 
 class MacGyver:
-    def __init__(self, mgimage, Level):
+    """this class create MacGuyver and add move and blit methods"""
+
+    def __init__(self, level):
         #  charachter sprite
-        self.mgimage = pygame.image.load(img_macgyver).convert_alpha()
-        # character position
+        self.settings = Settings()
+        self.mgimage = pygame.image.load(
+            self.settings.img_macgyver).convert_alpha()
+        # character start position
         self.case_x = 0
         self.case_y = 1
         self.x = 0
-        self.y =30
-        self.direction = self.mgimage
+        self.y = 30
         # lvl start
-        self.level = Level
-    
+        self.level = level
+
     def move(self, direction):
         """method to move the character"""
         # move right
         if direction == 'right':
             # prevents from going out the labyrinth/screen
-            if self.case_x < (num_sprite_len -1):
+            if self.case_x < (self.settings.num_sprite_len - 1):
                 # we check that the position is not a wall
                 if self.level.structure[self.case_y][self.case_x+1] != 'm':
                     # move one step
-                    self.case_x +=1
+                    self.case_x += 1
                     # calculate real position in pixel
-                    self.x = self.case_x*sprite_size
-                   
+                    self.x = self.case_x*self.settings.sprite_size
+
         # move left
         if direction == 'left':
             if self.case_x > 0:
                 if self.level.structure[self.case_y][self.case_x-1] != 'm':
-                    self.case_x -=1
-                    self.x = self.case_x*sprite_size
+                    self.case_x -= 1
+                    self.x = self.case_x*self.settings.sprite_size
 
         # move top
         if direction == 'up':
             if self.case_y > 0:
                 if self.level.structure[self.case_y-1][self.case_x] != 'm':
                     if self.level.structure[self.case_y-1][self.case_x] != 'v':
-                        self.case_y -=1
-                        self.y = self.case_y*sprite_size
- 
+                        self.case_y -= 1
+                        self.y = self.case_y*self.settings.sprite_size
+
         # move down
         if direction == 'down':
-            if self.case_y < (num_sprite_len):
+            if self.case_y < (self.settings.num_sprite_len):
                 if self.level.structure[self.case_y+1][self.case_x] != 'm':
-                    self.case_y +=1
-                    self.y = self.case_y*sprite_size
+                    self.case_y += 1
+                    self.y = self.case_y*self.settings.sprite_size
 
+    def blitmg(self, window):
+        window.blit(self.mgimage, (self.x, self.y))
 
 class Stuff:
     """this class create stuff MacGyver can use to escape the maze"""
-    def __init__(self, lootimage, Level): 
-        # load item
-        self.strawimage = pygame.image.load(img_straw).convert_alpha()
-        self.needleimage = pygame.image.load(img_needle).convert_alpha()
-        self.etherimage = pygame.image.load(img_ether).convert_alpha()
+
+    def __init__(self, level):
+        self.settings = Settings()
+        self.strawimage = pygame.image.load(self.settings.img_straw).convert()
+        self.needleimage = pygame.image.load(self.settings.img_needle).convert()
+        self.etherimage = pygame.image.load(self.settings.img_ether).convert()
         # item position
         self.case_y = 0
         self.case_x = 0
         self.x = 0
         self.y = 0
-        self.level = Level
-        self.loaded = True # condition to display item
-
-    def display_item(self, lootimage, window):
+        self.level = level
+        self.loaded = True  # condition to display item
+       
+    def display_item(self):
         # generate random position of the item
         while self.loaded:
-            self.case_x = random.randint(0, 14)  # We randomize the case_x position
+            # We randomize the case_x position
+            self.case_x = random.randint(0, 14)
             self.case_y = random.randint(0, 14)  # same for case_y position
-            if self.level.structure[self.case_y][self.case_x] == '0': # if the randomized position is located on a free space
-                self.y = self.case_y * sprite_size  # We define/accept the position of the object
-                self.x = self.case_x * sprite_size
+            # if the randomized position is located on a free space
+            if self.level.structure[self.case_y][self.case_x] == '0':
+                # We define/accept the position of the object
+                self.y = self.case_y * self.settings.sprite_size
+                self.x = self.case_x * self.settings.sprite_size
                 self.loaded = False  # Once we have defined the position of the object, the script is over
+    
