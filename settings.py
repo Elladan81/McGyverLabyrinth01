@@ -5,19 +5,22 @@ the title of the window, its icon, the number of sprites on a width, the size of
 and therefore the size of the window (multiplies the last two constants ) 
 
 """
+
+
 class Settings:
 
     def __init__(self):
-    #window setting
+        # window setting
         self.num_sprite_len = 15
         self.sprite_size = 30
-        self.window_size = self.num_sprite_len * self.sprite_size
+        self.window_height = (self.num_sprite_len + 1) * self.sprite_size
+        self.window_width = self.num_sprite_len * self.sprite_size
 
-        #window configuration
+        # window configuration
         self.window_title = "McGyver Labyrinthe"
         self.img_icon = "images/MacGyver.png"
 
-        #game picture
+        # game picture
         self.img_macgyver = "images/macgyver.png"
         self.img_home = "images/home.png"
         self.img_background = "images/background.png"
