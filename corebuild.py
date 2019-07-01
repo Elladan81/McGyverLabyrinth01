@@ -22,23 +22,22 @@ from settings import *
 
 
 class MacGyverGame():
+    """Overall class to manage game assets and behavior"""
 
     def __init__(self):
-
+        """Initialize the game, and create game resssource"""
         pygame.init()
 
         self.settings = Settings()
-        # open a game window
-        self.window = pygame.display.set_mode((self.settings.window_size, 480))
-        # window icon
-        self.icon = pygame.image.load(self.settings.img_icon)
-        pygame.display.set_icon(self.icon)
-        # title
+        self.window = pygame.display.set_mode(
+            (self.settings.window_width, self.settings.window_height))  # open a game window
+        self.icon = pygame.image.load(self.settings.img_icon)  # window icon
+        pygame.display.set_icon(self.icon)  # title
         pygame.display.set_caption(self.settings.window_title)
-        # moving MacGyver by maintening a key
-        pygame.key.set_repeat(400, 30)
+        pygame.key.set_repeat(300, 30)
 
     def run_game(self):
+        """start the main loop for the game"""
         # Main Loop
         self.continue_main = True
 
@@ -65,7 +64,7 @@ class MacGyverGame():
 
             # Game Loop
             while self.continue_game:
-                
+
                 pygame.time.Clock().tick(30)
 
                 self._check_game_keydown_event()
@@ -109,16 +108,14 @@ class MacGyverGame():
         # initiate main victory condition
         self.StrawPicked = False
         self.NeedlePicked = False
-        self.EtherPIcked = False
+        self.EtherPicked = False
 
     def _check_home_keydown_event(self):
         """check user event on home menu"""
         for event in pygame.event.get():
 
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                self.continue_home = False
-                self.continue_game = False
-                self.continue_main = False
+                self.continue_home and self.continue_game and self.continue_main is False
                 self.choose = 0
 
             elif event.type == KEYDOWN:
@@ -131,7 +128,6 @@ class MacGyverGame():
 
     def _check_game_keydown_event(self):
         """check user event in game"""
-
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.continue_game = False
@@ -152,11 +148,11 @@ class MacGyverGame():
     def _update_item_position(self):
 
         font = pygame.font.Font(None, 25)
-        text = font.render(
+        item_text = font.render(
             "Item picked up :", 1, (255, 255, 255))
-        textrect = text.get_rect()
+        textrect = item_text.get_rect()
         textrect.x, textrect.y = 10, 0
-        self.window.blit(text, textrect)
+        self.window.blit(item_text, textrect)
 
         if self.StrawPicked is False:
             self.window.blit(self.straw.strawimage,
@@ -174,14 +170,13 @@ class MacGyverGame():
             self.window.blit(self.needle.needleimage,
                              (190, 0))
 
-        if self.EtherPIcked is False:
+        if self.EtherPicked is False:
             self.window.blit(self.ether.etherimage,
                              (self.ether.x, self.ether.y))
         if (self.mg.x, self.mg.y) == (self.ether.x, self.ether.y):
-            self.EtherPIcked = True
+            self.EtherPicked = True
             self.window.blit(self.ether.etherimage,
                              (230, 0))
-
 
     def _check_victory_condition(self):
         """check victory conditions if the player arrives at the gardian"""
@@ -189,7 +184,7 @@ class MacGyverGame():
         if self.level.structure[self.mg.case_y][self.mg.case_x] == 'f':
             # If MacGyver reach the guard :
             # If every objects have been looted, it's ok, you win !
-            if self.StrawPicked and self.NeedlePicked and self.EtherPIcked:
+            if self.StrawPicked and self.NeedlePicked and self.EtherPicked:
                 # create a final scene, with a text in the middle of the screen
                 self.window.fill((0, 0, 0))
                 font = pygame.font.Font(None, 25)
@@ -197,8 +192,8 @@ class MacGyverGame():
                 text = font.render(
                     "You won ! MacGyver escaped from this deadly trap !", 1, (255, 255, 255))
                 textrect = text.get_rect()
-                textrect.centerx, textrect.centery = self.settings.window_size / \
-                    2, self.settings.window_size / 2  # Centering the text
+                textrect.centerx, textrect.centery = self.settings.window_width / \
+                    2, self.settings.window_height / 2  # Centering the text
                 self.window.blit(text, textrect)
 
             else:  # Else it's game over ! You loose !
@@ -208,9 +203,12 @@ class MacGyverGame():
                 text = font.render(
                     "Murdoc caught you. It's over for you, McGyver !", 1, (255, 255, 255))
                 textrect = text.get_rect()
-                textrect.centerx, textrect.centery = self.settings.window_size / 2, self.settings.window_size / 2
+                textrect.centerx, textrect.centery = self.settings.window_width / \
+                    2, self.settings.window_height / 2
                 self.window.blit(text, textrect)
 
+
 if __name__ == "__main__":
+    # make a game instance and run
     mg_game = MacGyverGame()
     mg_game.run_game()
