@@ -1,15 +1,11 @@
 """
-classes will be here
+this file contains the classes of objects appearing in the game: the character, the objects to pick up and the labyrinth itself.
 
-this fichier will contain classes :
+The level class creates and displays the maze. The first method browses the file to create a list of lists. The second method scans through the previously generated list to display the walls and blanks on the screen.
 
-Level : with two methods, one that generates a level from one fichier in a structure attribute, the other that displays it on the screen
+The MacGyver class consists of two methods: one to move it and the other to refresh its current position.
 
-Character : who creates a character, with a position, a current image (current direction), a position in a box, a position in pixels ...
-It contains only one method, that of displacement.
-It also recovers the structure of the level, to know the type of each box, and to prevent the displacement if it is a wall. 
-
-Items to collect : creates item with a random position, a current image, how to collect item, item count and condition
+The class stuff displays the objects to pick up in the maze. His method allows to randomly distribute the objects in the labyrinth displayed.
 """
 
 import pygame
@@ -74,7 +70,6 @@ class MacGyver():
         self.y = 30
         # lvl start
         self.level = level
-        
 
     def move(self, direction):
         """method to move the character"""
@@ -114,6 +109,7 @@ class MacGyver():
     def blitmg(self, window):
         window.blit(self.mgimage, (self.x, self.y))
 
+
 class Stuff():
     """this class create stuff MacGyver can use to escape the maze"""
 
@@ -127,7 +123,7 @@ class Stuff():
         self.y = 0
         self.level = level
         self.loaded = True  # condition to display item
-       
+
     def display_item(self):
         # generate random position of the item
         while self.loaded:
@@ -140,4 +136,3 @@ class Stuff():
                 self.y = self.case_y * self.settings.sprite_size
                 self.x = self.case_x * self.settings.sprite_size
                 self.loaded = False  # Once we have defined the position of the object, the script is over
-    
