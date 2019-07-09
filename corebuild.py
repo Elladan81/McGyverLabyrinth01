@@ -176,8 +176,7 @@ class MacGyverGame():
                              (self.ether.x, self.ether.y))
         if (self.mg.x, self.mg.y) == (self.ether.x, self.ether.y):
             self.EtherPicked = True
-            self.window.blit(self.ether.stu,
-                             (230, 0))
+            self.window.blit(self.ether.stuff_image, (230, 0))
 
     def _check_victory_condition(self):
         """check victory conditions if the player arrives at the gardian"""
