@@ -85,11 +85,11 @@ class MacGyverGame():
     def _generate_initial_stuff(self):
         # instantiate items and character
         self.mg = MacGyver(self.level)
-        self.straw = Stuff(self.level)
+        self.straw = Stuff(self.level, self.settings.img_straw)
         self.straw.display_item()
-        self.needle = Stuff(self.level)
+        self.needle = Stuff(self.level, self.settings.img_needle)
         self.needle.display_item()
-        self.ether = Stuff(self.level)
+        self.ether = Stuff(self.level, self.settings.img_ether)
         self.ether.display_item()
 
     def _display_background(self):
@@ -115,11 +115,12 @@ class MacGyverGame():
         for event in pygame.event.get():
 
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                self.continue_home and self.continue_game and self.continue_main is False
+                self.continue_home = False
+                self.continue_game = False
+                self.continue_main = False
                 self.choose = 0
 
-            elif event.type == KEYDOWN:
-                # lauch 1st lvl
+            elif event.type == KEYDOWN:  # lauch random lvl
                 if event.key == K_RETURN:
                     self.continue_home = False
                     list_level = ['lvl1', 'lvl2']  # list of level files
@@ -146,6 +147,7 @@ class MacGyverGame():
                     self.mg.move('down')
 
     def _update_item_position(self):
+        """update position of items on the screen"""
 
         font = pygame.font.Font(None, 25)
         item_text = font.render(
@@ -155,27 +157,27 @@ class MacGyverGame():
         self.window.blit(item_text, textrect)
 
         if self.StrawPicked is False:
-            self.window.blit(self.straw.strawimage,
+            self.window.blit(self.straw.stuff_image,
                              (self.straw.x, self.straw.y))
         if (self.mg.x, self.mg.y) == (self.straw.x, self.straw.y):
             self.StrawPicked = True
-            self.window.blit(self.straw.strawimage,
+            self.window.blit(self.straw.stuff_image,
                              (150, 0))
 
         if self.NeedlePicked is False:
-            self.window.blit(self.needle.needleimage,
+            self.window.blit(self.needle.stuff_image,
                              (self.needle.x, self.needle.y))
         if (self.mg.x, self.mg.y) == (self.needle.x, self.needle.y):
             self.NeedlePicked = True
-            self.window.blit(self.needle.needleimage,
+            self.window.blit(self.needle.stuff_image,
                              (190, 0))
 
         if self.EtherPicked is False:
-            self.window.blit(self.ether.etherimage,
+            self.window.blit(self.ether.stu,
                              (self.ether.x, self.ether.y))
         if (self.mg.x, self.mg.y) == (self.ether.x, self.ether.y):
             self.EtherPicked = True
-            self.window.blit(self.ether.etherimage,
+            self.window.blit(self.ether.stu,
                              (230, 0))
 
     def _check_victory_condition(self):

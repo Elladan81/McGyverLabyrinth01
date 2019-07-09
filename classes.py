@@ -30,7 +30,7 @@ class Level:
         self.finish = pygame.image.load(self.settings.img_finish).convert()
 
     def generate(self):
-        """method generates the lvl with the file. Create a list, containing a list per lines"""
+        """method generates the lvl with the level file. Create a list, containing a list per lines"""
         # open file
         with open(self.level_file, "r") as level_file:
             structure_lvl = []
@@ -59,7 +59,7 @@ class Level:
             num_line += 1
 
 
-class MacGyver:
+class MacGyver():
     """this class create MacGuyver and add move and blit methods"""
 
     def __init__(self, level):
@@ -74,6 +74,7 @@ class MacGyver:
         self.y = 30
         # lvl start
         self.level = level
+        
 
     def move(self, direction):
         """method to move the character"""
@@ -113,14 +114,12 @@ class MacGyver:
     def blitmg(self, window):
         window.blit(self.mgimage, (self.x, self.y))
 
-class Stuff:
+class Stuff():
     """this class create stuff MacGyver can use to escape the maze"""
 
-    def __init__(self, level):
+    def __init__(self, level, stuff_image):
         self.settings = Settings()
-        self.strawimage = pygame.image.load(self.settings.img_straw).convert()
-        self.needleimage = pygame.image.load(self.settings.img_needle).convert()
-        self.etherimage = pygame.image.load(self.settings.img_ether).convert()
+        self.stuff_image = pygame.image.load(stuff_image).convert()
         # item position
         self.case_y = 0
         self.case_x = 0

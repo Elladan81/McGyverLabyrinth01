@@ -26,6 +26,7 @@ class Settings:
         self.img_background = "images/background.png"
         self.img_wall = "images/wall.png"
         self.img_finish = "images/finish.png"
+        # item pictures
         self.img_needle = "images/items/needle.png"
         self.img_straw = "images/items/straw.png"
         self.img_ether = "images/items/ether.png"
