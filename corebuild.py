@@ -32,9 +32,9 @@ class MacGyverGame():
         self.window = pygame.display.set_mode(
             (self.settings.window_width, self.settings.window_height))  # open a game window
         self.icon = pygame.image.load(self.settings.img_icon)
-        pygame.display.set_icon(self.icon) # window icon
+        pygame.display.set_icon(self.icon)  # window icon
         pygame.display.set_caption(self.settings.window_title)  # title
-        pygame.key.set_repeat(300, 30) # support repeated key 
+        pygame.key.set_repeat(300, 30)  # support repeated key support
 
     def run_game(self):
         """main loop"""
@@ -172,7 +172,7 @@ class MacGyverGame():
                              (190, 0))
 
         if self.EtherPicked is False:
-            self.window.blit(self.ether.stu,
+            self.window.blit(self.ether.stuff_image,
                              (self.ether.x, self.ether.y))
         if (self.mg.x, self.mg.y) == (self.ether.x, self.ether.y):
             self.EtherPicked = True
