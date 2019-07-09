@@ -31,14 +31,13 @@ class MacGyverGame():
         self.settings = Settings()
         self.window = pygame.display.set_mode(
             (self.settings.window_width, self.settings.window_height))  # open a game window
-        self.icon = pygame.image.load(self.settings.img_icon)  # window icon
-        pygame.display.set_icon(self.icon)  # title
-        pygame.display.set_caption(self.settings.window_title)
-        pygame.key.set_repeat(300, 30)
+        self.icon = pygame.image.load(self.settings.img_icon)
+        pygame.display.set_icon(self.icon) # window icon
+        pygame.display.set_caption(self.settings.window_title)  # title
+        pygame.key.set_repeat(300, 30) # support repeated key 
 
     def run_game(self):
-        """start the main loop for the game"""
-        # Main Loop
+        """main loop"""
         self.continue_main = True
 
         while self.continue_main:
@@ -120,7 +119,7 @@ class MacGyverGame():
                 self.continue_main = False
                 self.choose = 0
 
-            elif event.type == KEYDOWN:  # lauch random lvl
+            elif event.type == KEYDOWN:  # launch random lvl
                 if event.key == K_RETURN:
                     self.continue_home = False
                     list_level = ['lvl1', 'lvl2']  # list of level files
@@ -199,7 +198,6 @@ class MacGyverGame():
                 self.window.blit(text, textrect)
 
             else:  # Else it's game over ! You loose !
-                # draw over everything on the screen
                 self.window.fill((0, 0, 0))
                 font = pygame.font.Font(None, 25)
                 text = font.render(
